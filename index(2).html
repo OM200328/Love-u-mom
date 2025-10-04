@@ -1,0 +1,502 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Mom - Heartfelt Apology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec, #e1bee7, #bbdefb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(to right, #e91e63, #9c27b0);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .apology-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f8bbd0 0%, #f8bbd0 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            padding: 0 4px;
+            font-weight: 600;
+        }
+
+        .envelope-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-back {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #f8bbd0, #f48fb1);
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .envelope-flap {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-flap:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 100px solid #f06292;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+        }
+
+        .envelope-flap:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-bottom: 100px solid transparent;
+            border-left: 150px solid #f06292;
+            border-right: 150px solid #f06292;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            height: 170px;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 0;
+            transition: all 0.5s;
+            transform: translateY(0);
+            overflow: hidden;
+        }
+
+        .letter h3 {
+            color: #e91e63;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .letter p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .envelope.open .letter {
+            transform: translateY(-100px);
+            height: 250px;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #e91e63;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 3;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sorry-sticker {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(to right, #e91e63, #9c27b0);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            transform: rotate(5deg);
+        }
+
+        .emoji-container {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 3rem;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .apology-btn {
+            background: linear-gradient(to right, #e91e63, #9c27b0);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .apology-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.6);
+        }
+
+        .apology-btn:active {
+            transform: translateY(1px);
+        }
+
+        .apology-btn.clicked {
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .message.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e91e63;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e91e63;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #777;
+            font-style: italic;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .envelope-image {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .envelope-image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .apology-text {
+                font-size: 1rem;
+            }
+            
+            .envelope {
+                width: 250px;
+                height: 166px;
+            }
+            
+            .envelope-flap:before {
+                border-top: 83px solid #f06292;
+                border-left: 125px solid transparent;
+                border-right: 125px solid transparent;
+            }
+            
+            .envelope-flap:after {
+                border-bottom: 83px solid transparent;
+                border-left: 125px solid #f06292;
+                border-right: 125px solid #f06292;
+            }
+            
+            .envelope-image {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts" id="hearts"></div>
+        
+        <div class="header">
+            <h1>💖 For My Dearest Mom 💖</h1>
+            <p>With all my love and respect...</p>
+        </div>
+        
+        <div class="content">
+            <div class="apology-text">
+                <p>I want to sincerely apologize <span class="highlight">from the bottom of my heart</span> for any inconvenience or hurt I caused. Sometimes we make mistakes without thinking about how it affects the people we love the most.</p>
+                
+                <p>Saying sorry shows how much I care and want to do better. I promise to be more thoughtful and respectful, especially to my beloved mom who means the world to me.</p>
+                
+                <p class="highlight">Maaf kariygaa Mata. 💖</p>
+                
+                <p>Being conscious of others' feelings and owning up to our mistakes is what makes relationships stronger and more beautiful.</p>
+            </div>
+            
+            <div class="image-container">
+                <a href="https://pin.it/10TkwlMke" target="_blank">
+                    <img src="https://i.pinimg.com/736x/10/8b/7a/108b7a7b2d1e0b0b0b0b0b0b0b0b0b0b.jpg" alt="Beautiful Envelope" class="envelope-image">
+                </a>
+                <p class="image-caption">Click on the envelope image to see the original inspiration</p>
+            </div>
+            
+            <div class="envelope-container">
+                <div class="envelope" id="envelope">
+                    <div class="envelope-back"></div>
+                    <div class="envelope-flap"></div>
+                    <div class="heart-seal">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="sorry-sticker">Sorry Mom!</div>
+                    <div class="letter">
+                        <h3>To My Dearest Mom,</h3>
+                        <p>I know I've made mistakes and I'm truly sorry for any pain I've caused. You mean the world to me, and I never want to hurt you. Please forgive me for my thoughtlessness.</p>
+                        <p>I promise to be more considerate and to always remember how much you've sacrificed for me. You are the most important person in my life, and I love you more than words can express.</p>
+                        <p>With all my love,<br>Your Child ❤️</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="emoji-container">
+                😔🙏💝
+            </div>
+            
+            <div class="button-container">
+                <button class="apology-btn" id="apologyBtn">🌸 Say Sorry to Mom 🌸</button>
+                <div class="message" id="message">
+                    Your heartfelt apology has been sent with love! Mom will surely forgive you! 💝
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Made with 💖 and lots of love for the best mom in the world
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const apologyBtn = document.getElementById('apologyBtn');
+            const message = document.getElementById('message');
+            const heartsContainer = document.getElementById('hearts');
+            
+            // Envelope interaction
+            envelope.addEventListener('click', function() {
+                this.classList.toggle('open');
+            });
+            
+            // Apology button interaction
+            apologyBtn.addEventListener('click', function() {
+                this.classList.add('clicked');
+                this.textContent = '💖 Thank You Mom! 💖';
+                message.classList.add('show');
+                
+                // Create floating hearts
+                createHearts();
+                
+                // Reset after 5 seconds
+                setTimeout(function() {
+                    apologyBtn.classList.remove('clicked');
+                    apologyBtn.textContent = '🌸 Say Sorry to Mom 🌸';
+                    message.classList.remove('show');
+                }, 5000);
+            });
+            
+            // Function to create floating hearts
+            function createHearts() {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        
+                        // Random position
+                        const leftPos = Math.random() * 100;
+                        heart.style.left = `${leftPos}%`;
+                        heart.style.bottom = '-20px';
+                        
+                        // Random size
+                        const size = Math.random() * 10 + 10;
+                        heart.style.width = `${size}px`;
+                        heart.style.height = `${size}px`;
+                        
+                        // Random color
+                        const colors = ['#e91e63', '#9c27b0', '#f44336', '#2196f3'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        heart.style.background = color;
+                        heart.style.setProperty('--heart-color', color);
+                        
+                        heartsContainer.appendChild(heart);
+                        
+                        // Animate heart
+                        heart.style.animation = `float ${Math.random() * 3 + 2}s ease-in forwards`;
+                        
+                        // Remove heart after animation
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 5000);
+                    }, i * 200);
+                }
+            }
+            
+            // Auto-open envelope on page load after a delay
+            setTimeout(() => {
+                envelope.classList.add('open');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
